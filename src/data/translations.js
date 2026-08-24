@@ -65,6 +65,11 @@ export const translations = {
         "Forged in the rain, calibrated on the apex. Every thousandth of a second on the time sheet is an obsession earned through thousands of laps, uncompromising grit, and relentless focus.",
       bioButton: "driver biography",
     },
+    partnerships: {
+      title: "Partn<b>e</b>rships.",
+      button: "Become a Partner",
+      tagline: "Racing Forward Together",
+    },
     contact: {
       tagline: "Commercial & Partnerships",
       title: "let's b<b>u</b>ild the <br /> next vi<b>c</b>tory <br /> t<b>o</b>gether.",
@@ -140,6 +145,11 @@ export const translations = {
       description:
         "Formet i regnen, kalibreret på apex. Hvert tusindedel af et sekund på tidtagningen er en besættelse vundet gennem tusindvis af omgange, kompromisløs vilje og urokkeligt fokus.",
       bioButton: "kørerbiografi",
+    },
+    partnerships: {
+      title: "Partn<b>e</b>rskaber.",
+      button: "Bliv Partner",
+      tagline: "Kører Fremad Sammen",
     },
     contact: {
       tagline: "Kommerciel & Partnerskaber",

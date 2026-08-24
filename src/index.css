@@ -142,6 +142,22 @@ body {
   .contact-clip-path-2 {
     clip-path: polygon(29% 15%, 85% 30%, 50% 100%, 10% 64%);
   }
+
+  .partnership-clip-1 {
+    clip-path: polygon(10% 0%, 90% 5%, 85% 70%, 5% 65%);
+  }
+
+  .partnership-clip-2 {
+    clip-path: polygon(15% 10%, 95% 20%, 80% 95%, 0% 80%);
+  }
+
+  .partnership-clip-3 {
+    clip-path: polygon(5% 5%, 100% 0%, 95% 75%, 10% 80%);
+  }
+
+  .partnership-clip-4 {
+    clip-path: polygon(0% 15%, 85% 0%, 100% 85%, 15% 100%);
+  }
 }
 
 /* From Uiverse.io by G4b413l */

@@ -166,7 +166,7 @@ const Hero = () => {
               id="watch-reel"
               title={t.hero.watchReel}
               leftIcon={<TiLocationArrow />}
-              containerClass="bg-[#459cce] text-black font-semibold flex-center gap-1 hover:brightness-110"
+              containerClass="bg-[#459cce] text-black font-semibold flex-center gap-1 hover:bg-white shadow-md shadow-[#459cce]/20 transition-all duration-300"
             />
           </div>
         </div>

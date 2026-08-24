@@ -69,7 +69,7 @@ const NavBar = () => {
                 download="Jonas_Strate_Jensen_Driver_Deck.pdf"
                 target="_blank"
                 rightIcon={<TiLocationArrow />}
-                containerClass="bg-[#459cce] text-black font-semibold md:flex hidden items-center justify-center gap-1 hover:brightness-110 shadow-md shadow-[#459cce]/20"
+                containerClass="bg-[#459cce] text-black font-semibold md:flex hidden items-center justify-center gap-1 hover:bg-white shadow-md shadow-[#459cce]/20 transition-all duration-300"
               />
             </div>
 
@@ -190,7 +190,7 @@ const NavBar = () => {
               target="_blank"
               onClick={() => setIsMobileMenuOpen(false)}
               rightIcon={<TiLocationArrow />}
-              containerClass="bg-[#459cce] text-black font-semibold w-full flex-center gap-2 hover:brightness-110"
+              containerClass="bg-[#459cce] text-black font-semibold w-full flex-center gap-2 hover:bg-white transition-all duration-300"
             />
             <p className="text-center font-general text-xs text-neutral-500">
               {t.nav.officialPortfolio}

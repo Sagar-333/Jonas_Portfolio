@@ -12,8 +12,8 @@ const Contact = () => {
   const { t } = useLanguage();
 
   return (
-    <div id="partners" className="my-16 min-h-96 w-full px-4 sm:my-20 sm:px-10">
-      <div className="relative overflow-hidden rounded-2xl bg-black py-16 text-blue-50 sm:py-24">
+    <div id="contact" className="mb-16 min-h-96 w-full px-4 sm:mb-20 sm:px-10">
+      <div className="relative overflow-hidden rounded-b-2xl bg-black py-16 text-blue-50 sm:py-24">
         <div className="absolute -left-20 top-0 hidden h-full w-72 overflow-hidden sm:block lg:left-20 lg:w-96">
           <ImageClipBox
             src="/img/contact-1.webp"
