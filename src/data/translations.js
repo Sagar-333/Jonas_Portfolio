@@ -83,7 +83,7 @@ export const translations = {
     contact: {
       tagline: "Commercial, Sponsorship & Press",
       title: "let's b<b>u</b>ild the <br /> next vi<b>c</b>tory <br /> t<b>o</b>gether.",
-      contactButton: "Email Jonas (Jonas@strate.dk)",
+      contactButton: "Contact Jonas",
       directEmail: "Direct: Jonas@strate.dk • Copenhagen, Denmark",
     },
     footer: {
@@ -176,7 +176,7 @@ export const translations = {
     contact: {
       tagline: "Kommercielt, Sponsorater & Presse",
       title: "lad os b<b>y</b>gge den <br /> næste se<b>j</b>r <br /> s<b>a</b>mmen.",
-      contactButton: "Skriv til Jonas (Jonas@strate.dk)",
+      contactButton: "Kontakt Jonas",
       directEmail: "Direkte: Jonas@strate.dk • København, Danmark",
     },
     footer: {
