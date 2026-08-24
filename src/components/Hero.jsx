@@ -6,10 +6,12 @@ import { useEffect, useRef, useState } from "react";
 
 import Button from "./Button";
 import VideoPreview from "./VideoPreview";
+import { useLanguage } from "../context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(1);
   const [hasClicked, setHasClicked] = useState(false);
 
@@ -83,9 +85,9 @@ const Hero = () => {
   const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
 
   return (
-    <div className="relative h-dvh w-screen overflow-x-hidden">
+    <div className="relative h-dvh w-full overflow-x-hidden">
       {loading && (
-        <div className="flex-center absolute z-[100] h-dvh w-screen overflow-hidden bg-violet-50">
+        <div className="flex-center absolute z-[100] h-dvh w-full overflow-hidden bg-violet-50">
           {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
           <div className="three-body">
             <div className="three-body__dot"></div>
@@ -97,14 +99,14 @@ const Hero = () => {
 
       <div
         id="video-frame"
-        className="relative z-10 h-dvh w-screen overflow-hidden rounded-lg bg-blue-75"
+        className="relative z-10 h-dvh w-full overflow-hidden rounded-lg bg-blue-75"
       >
         <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-64 cursor-pointer overflow-hidden rounded-lg">
+          <div className="mask-clip-path absolute-center absolute z-50 size-48 cursor-pointer overflow-hidden rounded-lg sm:size-64">
             <VideoPreview>
               <div
                 onClick={handleMiniVdClick}
-                className="origin-center scale-50 opacity-0 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100"
+                className="origin-center scale-75 opacity-70 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100 sm:scale-50 sm:opacity-0"
               >
                 <video
                   ref={nextVdRef}
@@ -112,7 +114,7 @@ const Hero = () => {
                   loop
                   muted
                   id="current-video"
-                  className="size-64 origin-center scale-150 object-cover object-center"
+                  className="size-48 origin-center scale-150 object-cover object-center sm:size-64"
                   onLoadedData={handleVideoLoad}
                 />
               </div>
@@ -125,7 +127,7 @@ const Hero = () => {
             loop
             muted
             id="next-video"
-            className="absolute-center invisible absolute z-20 size-64 object-cover object-center"
+            className="absolute-center invisible absolute z-20 size-48 object-cover object-center sm:size-64"
             onLoadedData={handleVideoLoad}
           />
           <video
@@ -140,37 +142,40 @@ const Hero = () => {
           />
         </div>
 
-        <h1 className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75">
-          DR<b>I</b>VEN
-        </h1>
+        <h1
+          className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75"
+          dangerouslySetInnerHTML={{ __html: t.hero.headingDriven }}
+        />
 
         <div className="absolute left-0 top-0 z-40 size-full">
-          <div className="mt-24 px-5 sm:px-10">
-            <p className="font-general text-xs font-semibold uppercase tracking-widest text-blue-100 mb-2">
-              Jonas Strate-Jensen // Official Portfolio
+          <div className="mt-20 px-4 sm:mt-24 sm:px-10">
+            <p className="mb-2 font-general text-xs font-semibold uppercase tracking-widest text-blue-100">
+              {t.hero.tagline}
             </p>
 
-            <h1 className="special-font hero-heading text-blue-100">
-              SP<b>E</b>ED
-            </h1>
+            <h1
+              className="special-font hero-heading text-blue-100"
+              dangerouslySetInnerHTML={{ __html: t.hero.headingSpeed }}
+            />
 
-            <p className="mb-5 max-w-72 font-robert-regular text-blue-100 text-sm sm:text-base">
-              Formula & GT Championship Contender <br /> Mastering the Apex. Pushing Human & Machine to the Edge.
+            <p className="mb-5 max-w-72 font-robert-regular text-xs leading-relaxed text-blue-100 sm:text-base">
+              {t.hero.description} <br /> {t.hero.descriptionLine2}
             </p>
 
             <Button
               id="watch-reel"
-              title="Watch Race Reel"
+              title={t.hero.watchReel}
               leftIcon={<TiLocationArrow />}
-              containerClass="bg-yellow-300 flex-center gap-1"
+              containerClass="bg-[#459cce] text-black font-semibold flex-center gap-1 hover:brightness-110"
             />
           </div>
         </div>
       </div>
 
-      <h1 className="special-font hero-heading absolute bottom-5 right-5 text-black">
-        DR<b>I</b>VEN
-      </h1>
+      <h1
+        className="special-font hero-heading absolute bottom-5 right-5 text-black"
+        dangerouslySetInnerHTML={{ __html: t.hero.headingDriven }}
+      />
     </div>
   );
 };

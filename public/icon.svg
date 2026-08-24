@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#0c0d14"/>
+  <rect width="60" height="60" x="2" y="2" rx="12" fill="none" stroke="#459cce" stroke-width="1.5" stroke-opacity="0.3"/>
+  <!-- Central Racing Star / Clover Emblem in Brand #459cce -->
+  <g transform="translate(32, 32) scale(1.1)">
+    <!-- Top Leaf -->
+    <path d="M0 -4 C-5 -10, -7 -16, 0 -20 C7 -16, 5 -10, 0 -4 Z" fill="#459cce"/>
+    <!-- Bottom Leaf -->
+    <path d="M0 4 C-5 10, -7 16, 0 20 C7 16, 5 10, 0 4 Z" fill="#459cce"/>
+    <!-- Left Leaf -->
+    <path d="M-4 0 C-10 -5, -16 -7, -20 0 C-16 7, -10 5, -4 0 Z" fill="#459cce"/>
+    <!-- Right Leaf -->
+    <path d="M4 0 C10 -5, 16 -7, 20 0 C16 7, 10 5, 4 0 Z" fill="#459cce"/>
+    <!-- Central Diamond / Dot -->
+    <circle cx="0" cy="0" r="2.5" fill="#ffffff"/>
+  </g>
+</svg>

@@ -1,5 +1,7 @@
 import { useState, useRef } from "react";
 import { TiLocationArrow } from "react-icons/ti";
+import { useLanguage } from "../context/LanguageContext";
+import GoFundMeCard from "./GoFundMeCard";
 
 export const BentoTilt = ({ children, className = "" }) => {
   const [transformStyle, setTransformStyle] = useState("");
@@ -38,7 +40,7 @@ export const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
-export const BentoCard = ({ src, title, description, isComingSoon }) => {
+export const BentoCard = ({ src, title, description, isComingSoon, comingSoonText = "coming soon" }) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverOpacity, setHoverOpacity] = useState(0);
   const hoverButtonRef = useRef(null);
@@ -57,19 +59,27 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
   const handleMouseLeave = () => setHoverOpacity(0);
 
   return (
-    <div className="relative size-full">
+    <div className="relative size-full overflow-hidden rounded-md">
       <video
         src={src}
         loop
         muted
         autoPlay
+        playsInline
         className="absolute left-0 top-0 size-full object-cover object-center"
       />
-      <div className="relative z-10 flex size-full flex-col justify-between p-5 text-blue-50">
+      <div className="relative z-10 flex size-full flex-col justify-between bg-gradient-to-t from-black/80 via-black/20 to-transparent p-4 text-blue-50 sm:p-6">
         <div>
-          <h1 className="bento-title special-font">{title}</h1>
+          <h1
+            className="bento-title special-font"
+            dangerouslySetInnerHTML={typeof title === "string" ? { __html: title } : undefined}
+          >
+            {typeof title !== "string" ? title : null}
+          </h1>
           {description && (
-            <p className="mt-3 max-w-64 text-xs md:text-base">{description}</p>
+            <p className="mt-2 max-w-xs text-xs leading-relaxed text-blue-100/80 sm:mt-3 sm:text-sm md:text-base">
+              {description}
+            </p>
           )}
         </div>
 
@@ -79,18 +89,18 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
             onMouseMove={handleMouseMove}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            className="border-hsla relative flex w-fit cursor-pointer items-center gap-1 overflow-hidden rounded-full bg-black px-5 py-2 text-xs uppercase text-white/20"
+            className="border-hsla relative mt-4 flex w-fit cursor-pointer items-center gap-1.5 overflow-hidden rounded-full bg-black/80 px-4 py-1.5 text-[10px] uppercase text-white/40 backdrop-blur-sm sm:px-5 sm:py-2 sm:text-xs"
           >
             {/* Radial gradient hover effect */}
             <div
               className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
               style={{
                 opacity: hoverOpacity,
-                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #656fe288, #00000026)`,
+                background: `radial-gradient(100px circle at ${cursorPosition.x}px ${cursorPosition.y}px, #459cce88, #00000026)`,
               }}
             />
             <TiLocationArrow className="relative z-20" />
-            <p className="relative z-20">coming soon</p>
+            <p className="relative z-20">{comingSoonText}</p>
           </div>
         )}
       </div>
@@ -98,93 +108,93 @@ export const BentoCard = ({ src, title, description, isComingSoon }) => {
   );
 };
 
-const Features = () => (
-  <section id="disciplines" className="bg-black pb-52">
-    <div className="container mx-auto px-3 md:px-10">
-      <div className="px-5 py-32">
-        <p className="font-circular-web text-lg text-blue-50">
-          The Competitive Arena
-        </p>
-        <p className="max-w-md font-circular-web text-lg text-blue-50 opacity-50">
-          A relentless pursuit of tenths of a second. Operating at the razor's edge across the world's most demanding circuits and elite motorsport categories.
-        </p>
-      </div>
+const Features = () => {
+  const { t } = useLanguage();
 
-      <BentoTilt className="border-hsla relative mb-7 h-96 w-full overflow-hidden rounded-md md:h-[65vh]">
-        <BentoCard
-          src="videos/feature-1.mp4"
-          title={
-            <>
-              ap<b>e</b>x
-            </>
-          }
-          description="GT3 & Single-Seater campaigns: Harnessing high-downforce aerodynamics, racecraft, and tire strategy across sprint and endurance formats."
-          isComingSoon
-        />
-      </BentoTilt>
+  return (
+    <section id="disciplines" className="bg-black pb-24 sm:pb-52">
+      <div className="container mx-auto px-4 md:px-10">
+        <div className="px-2 py-16 sm:px-5 sm:py-32">
+          <p className="font-circular-web text-base text-blue-50 sm:text-lg">
+            {t.features.arenaTag}
+          </p>
+          <p className="mt-1 max-w-md font-circular-web text-sm text-blue-50 opacity-50 sm:text-lg">
+            {t.features.arenaDescription}
+          </p>
+        </div>
 
-      <div className="grid h-[135vh] w-full grid-cols-2 grid-rows-3 gap-7">
-        <BentoTilt className="bento-tilt_1 row-span-1 md:col-span-1 md:row-span-2">
+        <BentoTilt className="border-hsla relative mb-5 h-80 w-full overflow-hidden rounded-md sm:mb-7 sm:h-96 md:h-[65vh]">
           <BentoCard
-            src="videos/feature-2.mp4"
-            title={
-              <>
-                tel<b>e</b>metry
-              </>
-            }
-            description="Data-driven race engineering, high-frequency telemetry analysis, and rigorous simulator-to-track correlation."
+            src="videos/feature-1.mp4"
+            title={t.features.apexTitle}
+            description={t.features.apexDesc}
             isComingSoon
+            comingSoonText={t.features.comingSoon}
           />
         </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1 row-span-1 ms-32 md:col-span-1 md:ms-0">
-          <BentoCard
-            src="videos/feature-3.mp4"
-            title={
-              <>
-                p<b>o</b>dium
-              </>
-            }
-            description="Championship-winning consistency: Pole positions, race victories, and fastest lap records across European circuits."
-            isComingSoon
-          />
-        </BentoTilt>
+        {/* 2-Column Responsive Layout */}
+        <div className="grid w-full grid-cols-1 gap-5 md:grid-cols-2 md:gap-7 items-start">
+          {/* Left Column */}
+          <div className="flex flex-col gap-5 md:gap-7">
+            {/* Telemetry Card */}
+            <BentoTilt className="bento-tilt_1 h-80 sm:h-96 md:h-[480px]">
+              <BentoCard
+                src="videos/feature-2.mp4"
+                title={t.features.telemetryTitle}
+                description={t.features.telemetryDesc}
+                isComingSoon
+                comingSoonText={t.features.comingSoon}
+              />
+            </BentoTilt>
 
-        <BentoTilt className="bento-tilt_1 me-14 md:col-span-1 md:me-0">
-          <BentoCard
-            src="videos/feature-4.mp4"
-            title={
-              <>
-                aer<b>o</b>
-              </>
-            }
-            description="Peak physical conditioning: Sustaining extreme cockpit temperatures and sustained high-G braking zones."
-            isComingSoon
-          />
-        </BentoTilt>
+            {/* 2025 Grid Schedule Card */}
+            <BentoTilt className="bento-tilt_2 h-64 sm:h-80 md:h-[320px]">
+              <div className="flex size-full flex-col justify-between rounded-md bg-[#459cce] p-5 shadow-lg shadow-[#459cce]/20">
+                <h1
+                  className="bento-title special-font max-w-64 text-black font-black"
+                  dangerouslySetInnerHTML={{ __html: t.features.gridSchedule }}
+                />
 
-        <BentoTilt className="bento-tilt_2">
-          <div className="flex size-full flex-col justify-between bg-violet-300 p-5">
-            <h1 className="bento-title special-font max-w-64 text-black">
-              2025 Gr<b>i</b>d Sc<b>h</b>edule.
-            </h1>
-
-            <TiLocationArrow className="m-5 scale-[5] self-end" />
+                <TiLocationArrow className="m-3 scale-[3] self-end text-black sm:m-5 sm:scale-[5]" />
+              </div>
+            </BentoTilt>
           </div>
-        </BentoTilt>
 
-        <BentoTilt className="bento-tilt_2">
-          <video
-            src="videos/feature-5.mp4"
-            loop
-            muted
-            autoPlay
-            className="size-full object-cover object-center"
-          />
-        </BentoTilt>
+          {/* Right Column */}
+          <div className="flex flex-col gap-5 md:gap-7">
+            {/* Podium Card */}
+            <BentoTilt className="bento-tilt_1 h-72 sm:h-80 md:h-[240px]">
+              <BentoCard
+                src="videos/feature-3.mp4"
+                title={t.features.podiumTitle}
+                description={t.features.podiumDesc}
+                isComingSoon
+                comingSoonText={t.features.comingSoon}
+              />
+            </BentoTilt>
+
+            {/* GoFundMe Official Card */}
+            <BentoTilt className="bento-tilt_1 w-full">
+              <GoFundMeCard />
+            </BentoTilt>
+
+            {/* Feature 5 Video */}
+            <BentoTilt className="bento-tilt_2 h-56 sm:h-64 md:h-[180px]">
+              <video
+                src="videos/feature-5.mp4"
+                loop
+                muted
+                autoPlay
+                playsInline
+                className="size-full rounded-md object-cover object-center"
+              />
+            </BentoTilt>
+          </div>
+        </div>
       </div>
-    </div>
-  </section>
-);
+    </section>
+  );
+};
 
 export default Features;

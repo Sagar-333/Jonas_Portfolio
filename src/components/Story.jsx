@@ -3,8 +3,10 @@ import { useRef } from "react";
 
 import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
+import { useLanguage } from "../context/LanguageContext";
 
 const FloatingImage = () => {
+  const { t } = useLanguage();
   const frameRef = useRef(null);
 
   const handleMouseMove = (e) => {
@@ -46,15 +48,15 @@ const FloatingImage = () => {
   };
 
   return (
-    <div id="journey" className="min-h-dvh w-screen bg-black text-blue-50">
-      <div className="flex size-full flex-col items-center py-10 pb-24">
-        <p className="font-general text-sm uppercase md:text-[10px] tracking-widest text-neutral-400">
-          the racing journey
+    <div id="journey" className="min-h-dvh w-full overflow-hidden bg-black text-blue-50">
+      <div className="flex size-full flex-col items-center py-10 pb-16 sm:py-20 sm:pb-24">
+        <p className="font-general text-xs uppercase tracking-widest text-neutral-400 sm:text-sm md:text-[10px]">
+          {t.story.tagline}
         </p>
 
         <div className="relative size-full">
           <AnimatedTitle
-            title="the ch<b>r</b>onicle of <br /> raw p<b>u</b>rsuit"
+            title={t.story.title}
             containerClass="mt-5 pointer-events-none mix-blend-difference relative z-10"
           />
 
@@ -69,7 +71,7 @@ const FloatingImage = () => {
                   onMouseEnter={handleMouseLeave}
                   src="/img/entrance.webp"
                   alt="entrance.webp"
-                  className="object-contain"
+                  className="max-h-[50vh] object-contain md:max-h-none"
                 />
               </div>
             </div>
@@ -103,16 +105,16 @@ const FloatingImage = () => {
           </div>
         </div>
 
-        <div className="-mt-80 flex w-full justify-center md:-mt-64 md:me-44 md:justify-end">
+        <div className="z-20 -mt-16 flex w-full justify-center px-4 sm:-mt-36 sm:px-6 md:-mt-64 md:me-44 md:justify-end">
           <div className="flex h-full w-fit flex-col items-center md:items-start">
-            <p className="mt-3 max-w-sm text-center font-circular-web text-violet-50 md:text-start">
-              Forged in the rain, calibrated on the apex. Every thousandth of a second on the time sheet is an obsession earned through thousands of laps, uncompromising grit, and relentless focus.
+            <p className="mt-3 max-w-sm text-center font-circular-web text-xs leading-relaxed text-violet-50/90 sm:text-sm md:text-start md:text-base">
+              {t.story.description}
             </p>
 
             <Button
               id="bio-btn"
-              title="driver biography"
-              containerClass="mt-5"
+              title={t.story.bioButton}
+              containerClass="mt-5 bg-[#459cce] text-black font-semibold hover:bg-white transition-colors"
             />
           </div>
         </div>

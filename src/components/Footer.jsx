@@ -1,4 +1,5 @@
 import { FaInstagram, FaTwitter, FaYoutube, FaLinkedin } from "react-icons/fa";
+import { useLanguage } from "../context/LanguageContext";
 
 const socialLinks = [
   { href: "https://instagram.com", icon: <FaInstagram /> },
@@ -8,21 +9,23 @@ const socialLinks = [
 ];
 
 const Footer = () => {
+  const { t } = useLanguage();
+
   return (
-    <footer id="contact" className="w-screen bg-[#5542ff] py-4 text-black">
-      <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 md:flex-row">
-        <p className="text-center text-sm font-light md:text-left">
-          © Jonas Strate-Jensen {new Date().getFullYear()}. All rights reserved.
+    <footer id="contact" className="w-full overflow-hidden bg-[#459cce] py-6 text-black sm:py-4">
+      <div className="container mx-auto flex flex-col items-center justify-between gap-4 px-4 sm:px-8 md:flex-row">
+        <p className="text-center text-xs font-medium text-black/90 sm:text-sm md:text-left">
+          © Jonas Strate-Jensen {new Date().getFullYear()}. {t.footer.rights}
         </p>
 
-        <div className="flex justify-center gap-4  md:justify-start">
+        <div className="flex justify-center gap-6 md:justify-start">
           {socialLinks.map((link, index) => (
             <a
               key={index}
               href={link.href}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-black transition-colors duration-500 ease-in-out hover:text-white"
+              className="text-lg text-black transition-colors duration-300 hover:text-white"
             >
               {link.icon}
             </a>
@@ -31,9 +34,9 @@ const Footer = () => {
 
         <a
           href="#privacy-policy"
-          className="text-center text-sm font-light hover:underline md:text-right"
+          className="text-center text-xs font-medium text-black/90 hover:underline sm:text-sm md:text-right"
         >
-          Privacy Policy
+          {t.footer.privacy}
         </a>
       </div>
     </footer>
