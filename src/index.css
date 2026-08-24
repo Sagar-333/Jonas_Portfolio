@@ -74,7 +74,7 @@ body {
   }
 
   .about-subtext {
-    @apply relative mt-3 w-full max-w-sm sm:max-w-md px-4 text-center font-circular-web text-sm sm:text-base md:absolute md:bottom-[-80dvh] md:left-1/2 md:-translate-x-1/2 md:max-w-[34rem] md:mt-0;
+    @apply relative mt-3 w-full max-w-sm sm:max-w-md px-4 text-center font-circular-web text-sm sm:text-base md:absolute md:bottom-[-90dvh] md:left-1/2 md:-translate-x-1/2 md:max-w-[46rem] md:mt-0;
   }
 
   .about-image {

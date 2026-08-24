@@ -1,5 +1,6 @@
 import gsap from "gsap";
 import { useRef } from "react";
+import { TiLocationArrow } from "react-icons/ti";
 
 import Button from "./Button";
 import AnimatedTitle from "./AnimatedTitle";
@@ -70,7 +71,7 @@ const FloatingImage = () => {
                   onMouseUp={handleMouseLeave}
                   onMouseEnter={handleMouseLeave}
                   src="/img/entrance.webp"
-                  alt="entrance.webp"
+                  alt="Jonas Strate-Jensen Journey"
                   className="max-h-[50vh] object-contain md:max-h-none"
                 />
               </div>
@@ -114,7 +115,10 @@ const FloatingImage = () => {
             <Button
               id="bio-btn"
               title={t.story.bioButton}
-              containerClass="mt-5 bg-[#459cce] text-black font-semibold hover:bg-white transition-colors"
+              href="https://www.gofundme.com/f/support-my-2027-karting-season-journey-3jpe3"
+              target="_blank"
+              rightIcon={<TiLocationArrow />}
+              containerClass="mt-5 bg-[#459cce] text-black font-semibold hover:bg-white transition-all flex-center gap-1.5 shadow-md shadow-[#459cce]/20"
             />
           </div>
         </div>

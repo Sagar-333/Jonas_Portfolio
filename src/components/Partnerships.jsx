@@ -1,28 +1,291 @@
 import { useEffect, useRef } from "react";
+import styled from "styled-components";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { TiLocationArrow } from "react-icons/ti";
 import AnimatedTitle from "./AnimatedTitle";
 import Button from "./Button";
 import { useLanguage } from "../context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
-// Partner logos as styled text components (matching the reference design aesthetic)
-const partners = [
-  { name: "Red Bull Racing", display: "RED BULL", style: "font-black text-2xl sm:text-3xl md:text-4xl tracking-tighter" },
-  { name: "Sparco", display: "SPARCO", style: "font-black text-2xl sm:text-3xl md:text-4xl tracking-widest" },
-  { name: "OMP Racing", display: "OMP", style: "font-black text-3xl sm:text-4xl md:text-5xl tracking-tight italic" },
-  { name: "Motorsport.com", display: "Motorsport", style: "font-light text-xl sm:text-2xl md:text-3xl tracking-wide italic" },
-  { name: "Arai Helmets", display: "ARAI", style: "font-black text-2xl sm:text-3xl md:text-4xl tracking-[0.3em]" },
-  { name: "Stilo Helmets", display: "STILO", style: "font-bold text-2xl sm:text-3xl md:text-4xl tracking-widest" },
-  { name: "P1 Advanced Racewear", display: "P1", style: "font-black text-3xl sm:text-4xl md:text-5xl tracking-tight" },
-];
+/* ── Styled Sponsor Card ── */
+const StyledSponsorCard = styled.a`
+  display: block;
+  text-decoration: none;
+
+  .wrapper,
+  .wrapper * {
+    box-sizing: border-box;
+  }
+
+  .wrapper {
+    width: 300px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    font-family: "Space Grotesk", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #111;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .card {
+    position: absolute;
+    inset: 0;
+    width: 110%;
+    height: 110%;
+    translate: -5% -5%;
+    filter: url("#noise");
+    --c1: #0a1628;
+    --c2: #459cce;
+    --c3: #1a3a5c;
+    background: radial-gradient(
+        circle at 50% 100%,
+        var(--c1) 20%,
+        var(--c2) 40% 50%,
+        var(--c3) 55%
+      )
+      no-repeat center / auto;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 24px 24px 20px;
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #ffffff;
+  }
+
+  .logo-img {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      filter 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    transition: color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+      letter-spacing 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .cta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+      transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .cta-arrow {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    font-size: 13px;
+  }
+
+  .wrapper:hover {
+    box-shadow: 0 20px 50px rgba(69, 156, 206, 0.15);
+  }
+
+  .wrapper:hover .logo-img {
+    transform: translateY(-2px);
+    filter: drop-shadow(0 6px 16px rgba(69, 156, 206, 0.3));
+  }
+
+  .wrapper:hover .desc {
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.04em;
+  }
+
+  .wrapper:hover .cta {
+    color: #459cce;
+    transform: translateY(-1px);
+  }
+
+  .wrapper:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+`;
+
+/* ── Second card variant – purple/violet gradient ── */
+const StyledSoftwareCard = styled.a`
+  display: block;
+  text-decoration: none;
+
+  .wrapper,
+  .wrapper * {
+    box-sizing: border-box;
+  }
+
+  .wrapper {
+    width: 300px;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    position: relative;
+    font-family: "Space Grotesk", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #111;
+    cursor: pointer;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .card {
+    position: absolute;
+    inset: 0;
+    width: 110%;
+    height: 110%;
+    translate: -5% -5%;
+    filter: url("#noise");
+    --c1: #0f0a28;
+    --c2: #8b5cf6;
+    --c3: #3b1a6c;
+    background: radial-gradient(
+        circle at 50% 100%,
+        var(--c1) 20%,
+        var(--c2) 40% 50%,
+        var(--c3) 55%
+      )
+      no-repeat center / auto;
+    z-index: 0;
+  }
+
+  .content {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 24px 24px 20px;
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .badge {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #ffffff;
+  }
+
+  .title-text {
+    font-size: 28px;
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    color: #ffffff;
+    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1),
+      text-shadow 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .desc {
+    color: rgba(255, 255, 255, 0.75);
+    font-size: 12px;
+    font-weight: 300;
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    transition: color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+      letter-spacing 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .cta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: rgba(255, 255, 255, 0.4);
+    transition: color 0.5s cubic-bezier(0.25, 1, 0.5, 1),
+      transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .cta-arrow {
+    transition: transform 0.5s cubic-bezier(0.25, 1, 0.5, 1);
+    font-size: 13px;
+  }
+
+  .wrapper:hover {
+    box-shadow: 0 20px 50px rgba(139, 92, 246, 0.15);
+  }
+
+  .wrapper:hover .title-text {
+    transform: translateY(-2px);
+    text-shadow: 0 6px 20px rgba(139, 92, 246, 0.35);
+  }
+
+  .wrapper:hover .desc {
+    color: rgba(255, 255, 255, 0.95);
+    letter-spacing: 0.04em;
+  }
+
+  .wrapper:hover .cta {
+    color: #a78bfa;
+    transform: translateY(-1px);
+  }
+
+  .wrapper:hover .cta-arrow {
+    transform: translateX(4px);
+  }
+`;
 
 const Partnerships = () => {
   const { t } = useLanguage();
   const sectionRef = useRef(null);
   const buttonRef = useRef(null);
-  const logosRef = useRef(null);
+  const cardsRef = useRef(null);
   const dividerRef = useRef(null);
   const heroImageRef = useRef(null);
 
@@ -30,9 +293,8 @@ const Partnerships = () => {
     const ctx = gsap.context(() => {
       const mm = gsap.matchMedia();
 
-      // Mobile: trigger promptly as section enters viewport
+      // Mobile
       mm.add("(max-width: 767px)", () => {
-        // Divider line animation
         gsap.fromTo(
           dividerRef.current,
           { scaleX: 0, transformOrigin: "left center" },
@@ -48,7 +310,6 @@ const Partnerships = () => {
           }
         );
 
-        // Button reveal
         gsap.fromTo(
           buttonRef.current,
           { y: 30, opacity: 0 },
@@ -65,25 +326,20 @@ const Partnerships = () => {
           }
         );
 
-        // Logo items stagger animation
-        const logoItems = logosRef.current?.querySelectorAll(".partner-logo-item");
-        if (logoItems?.length) {
+        if (cardsRef.current) {
+          const cards = cardsRef.current.children;
           gsap.fromTo(
-            logoItems,
-            {
-              y: 35,
-              opacity: 0,
-              scale: 0.95,
-            },
+            cards,
+            { y: 35, opacity: 0, scale: 0.95 },
             {
               y: 0,
               opacity: 1,
               scale: 1,
-              duration: 0.5,
-              stagger: 0.08,
+              duration: 0.6,
+              stagger: 0.15,
               ease: "power3.out",
               scrollTrigger: {
-                trigger: logosRef.current,
+                trigger: cardsRef.current,
                 start: "top 90%",
                 toggleActions: "play none none reverse",
               },
@@ -92,9 +348,8 @@ const Partnerships = () => {
         }
       });
 
-      // Desktop / PC: untouched
+      // Desktop
       mm.add("(min-width: 768px)", () => {
-        // Hero image — slide in from right with scale
         if (heroImageRef.current) {
           gsap.fromTo(
             heroImageRef.current,
@@ -114,7 +369,6 @@ const Partnerships = () => {
           );
         }
 
-        // Divider line animation
         gsap.fromTo(
           dividerRef.current,
           { scaleX: 0, transformOrigin: "left center" },
@@ -130,7 +384,6 @@ const Partnerships = () => {
           }
         );
 
-        // Button reveal
         gsap.fromTo(
           buttonRef.current,
           { y: 30, opacity: 0 },
@@ -147,26 +400,21 @@ const Partnerships = () => {
           }
         );
 
-        // Logo items stagger animation (entrance only — no floating)
-        const logoItems = logosRef.current?.querySelectorAll(".partner-logo-item");
-        if (logoItems?.length) {
+        if (cardsRef.current) {
+          const cards = cardsRef.current.children;
           gsap.fromTo(
-            logoItems,
-            {
-              y: 50,
-              opacity: 0,
-              scale: 0.9,
-            },
+            cards,
+            { y: 50, opacity: 0, scale: 0.9 },
             {
               y: 0,
               opacity: 1,
               scale: 1,
-              duration: 0.7,
-              stagger: 0.12,
+              duration: 0.8,
+              stagger: 0.2,
               ease: "power3.out",
               scrollTrigger: {
-                trigger: logosRef.current,
-                start: "top 80%",
+                trigger: cardsRef.current,
+                start: "top 85%",
                 toggleActions: "play none none reverse",
               },
             }
@@ -184,6 +432,30 @@ const Partnerships = () => {
       ref={sectionRef}
       className="relative w-full overflow-hidden pt-8 sm:pt-12"
     >
+      {/* Hidden SVG noise filter */}
+      <svg
+        style={{ width: 0, height: 0, position: "absolute" }}
+        aria-hidden="true"
+      >
+        <filter id="noise">
+          <feTurbulence
+            type="turbulence"
+            baseFrequency="0.9"
+            numOctaves={2}
+            seed={1}
+            stitchTiles="stitch"
+            result="turbulence"
+          />
+          <feDisplacementMap
+            in="SourceGraphic"
+            in2="turbulence"
+            scale={30}
+            xChannelSelector="R"
+            yChannelSelector="G"
+          />
+        </filter>
+      </svg>
+
       {/* Main container — black bg */}
       <div className="relative mx-4 sm:mx-10 overflow-hidden rounded-t-2xl bg-black py-16 sm:py-20 md:py-28 px-6 sm:px-12 md:px-20 lg:px-28">
 
@@ -198,12 +470,11 @@ const Partnerships = () => {
             alt=""
             className="size-full object-cover opacity-60"
           />
-          {/* Gradient overlay to blend into the black bg */}
           <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/80" />
           <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
         </div>
 
-        {/* ── Heading with AnimatedTitle (same 3D word animation as Contact) ── */}
+        {/* ── Heading with AnimatedTitle ── */}
         <div className="relative z-10">
           <AnimatedTitle
             title={t.partnerships?.title || "Partn<b>e</b>rships."}
@@ -218,42 +489,88 @@ const Partnerships = () => {
           className="relative z-10 mt-8 sm:mt-12 h-[1px] w-full bg-white/15"
         />
 
-        {/* ── Content grid: Button on left, logos on right ── */}
+        {/* ── Content grid: Button on left, sponsor cards on right ── */}
         <div className="relative z-10 mt-10 sm:mt-14 md:mt-16 flex flex-col md:flex-row md:items-start gap-10 md:gap-16 lg:gap-20">
           {/* Left side - CTA */}
           <div ref={buttonRef} className="shrink-0">
             <Button
               id="partner-btn"
               title={t.partnerships?.button || "Become a Partner"}
-              containerClass="bg-[#459cce] text-black font-semibold hover:bg-white transition-all duration-300 shadow-lg shadow-[#459cce]/20"
+              href="mailto:Jonas@strate.dk?subject=Partnership%20Inquiry%20-%20Jonas%20Strate-Jensen"
+              rightIcon={<TiLocationArrow />}
+              containerClass="bg-[#459cce] text-black font-semibold hover:bg-white transition-all duration-300 shadow-lg shadow-[#459cce]/20 flex-center gap-1.5"
             />
           </div>
 
-          {/* Right side - Partner logos grid */}
+          {/* Right side - Sponsor cards */}
           <div
-            ref={logosRef}
-            className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-8 gap-y-10 sm:gap-x-12 sm:gap-y-14 md:gap-x-16 md:gap-y-16 items-center"
+            ref={cardsRef}
+            className="flex-1 flex flex-col sm:flex-row items-center sm:items-start gap-6"
           >
-            {partners.map((partner) => (
-              <div
-                key={partner.name}
-                className="partner-logo-item group relative flex items-center justify-center py-3 cursor-default"
-              >
-                {/* Hover glow effect */}
-                <div className="absolute inset-0 rounded-xl bg-[#459cce]/0 group-hover:bg-[#459cce]/5 transition-colors duration-500" />
-
-                {/* Partner text logo */}
-                <span
-                  className={`relative select-none text-white/70 transition-all duration-500 group-hover:text-white group-hover:scale-105 ${partner.style}`}
-                  title={partner.name}
-                >
-                  {partner.display}
-                </span>
-
-                {/* Underline reveal on hover */}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[2px] w-0 bg-[#459cce] transition-all duration-500 group-hover:w-3/4" />
+            {/* Card 1: Stratefoto – Photography Partner */}
+            <StyledSponsorCard
+              href="http://stratefoto.dk/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="wrapper">
+                <div className="card" />
+                <div className="content">
+                  <div className="top">
+                    <div className="badge">
+                      {t.partnerships?.sponsorBadge || "OFFICIAL PHOTOGRAPHY PARTNER"}
+                    </div>
+                    <img
+                      src="/img/stratefoto-logo.jpg"
+                      alt="Stratefoto.dk"
+                      className="logo-img"
+                    />
+                  </div>
+                  <div className="bottom">
+                    <p className="desc">
+                      {t.partnerships?.cardBio ||
+                        "Sports, wedding & event photography. Capturing every decisive moment with world-class precision."}
+                    </p>
+                    <div className="cta">
+                      <span>{t.partnerships?.visitSponsor || "LEARN MORE"}</span>
+                      <span className="cta-arrow">→</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            ))}
+            </StyledSponsorCard>
+
+            {/* Card 2: Sagar Khanna – Software Partner */}
+            <StyledSoftwareCard
+              as="div"
+              style={{ cursor: "default" }}
+            >
+              <div className="wrapper">
+                <div className="card" />
+                <div className="content">
+                  <div className="top">
+                    <div className="badge">
+                      {t.partnerships?.softwareBadge || "OFFICIAL SOFTWARE PARTNER"}
+                    </div>
+                    <div className="title-text">
+                      SAGAR
+                      <br />
+                      KHANNA
+                    </div>
+                  </div>
+                  <div className="bottom">
+                    <p className="desc">
+                      {t.partnerships?.softwareBio ||
+                        "Full-stack developer & designer. Building digital experiences that perform at the speed of ambition."}
+                    </p>
+                    <div className="cta">
+                      <span>{t.partnerships?.visitSoftware || "LEARN MORE"}</span>
+                      <span className="cta-arrow">→</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </StyledSoftwareCard>
           </div>
         </div>
 

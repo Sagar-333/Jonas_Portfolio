@@ -1,10 +1,11 @@
+import { TiLocationArrow } from "react-icons/ti";
 import AnimatedTitle from "./AnimatedTitle";
 import Button from "./Button";
 import { useLanguage } from "../context/LanguageContext";
 
 const ImageClipBox = ({ src, clipClass }) => (
   <div className={clipClass}>
-    <img src={src} />
+    <img src={src} alt="Jonas Strate-Jensen" />
   </div>
 );
 
@@ -46,11 +47,24 @@ const Contact = () => {
             containerClass="special-font !text-3xl sm:!text-5xl md:!text-[5.5rem] lg:!text-[6.2rem] w-full font-zentry !font-black !leading-[.95] md:!leading-[.9]"
           />
 
-          <Button
-            id="contact-btn"
-            title={t.contact.contactButton}
-            containerClass="mt-8 sm:mt-10 cursor-pointer bg-[#459cce] text-black font-semibold hover:bg-white shadow-lg shadow-[#459cce]/20 transition-all"
-          />
+          <div className="mt-8 flex flex-col items-center gap-3 sm:mt-10">
+            <Button
+              id="contact-btn"
+              title={t.contact.contactButton}
+              href="mailto:Jonas@strate.dk?subject=Inquiry%20-%20Jonas%20Strate-Jensen"
+              rightIcon={<TiLocationArrow />}
+              containerClass="cursor-pointer bg-[#459cce] text-black font-semibold hover:bg-white shadow-lg shadow-[#459cce]/20 transition-all flex-center gap-1.5"
+            />
+
+            {t.contact.directEmail && (
+              <a
+                href="mailto:Jonas@strate.dk"
+                className="font-general text-xs tracking-wider text-blue-100/60 transition-colors hover:text-[#459cce]"
+              >
+                {t.contact.directEmail}
+              </a>
+            )}
+          </div>
         </div>
       </div>
     </div>

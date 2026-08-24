@@ -171,6 +171,7 @@ const Hero = () => {
             <Button
               id="watch-reel"
               title={t.hero.watchReel}
+              href="#disciplines"
               leftIcon={<TiLocationArrow />}
               containerClass="bg-[#459cce] text-black font-semibold flex-center gap-1 hover:bg-white shadow-md shadow-[#459cce]/20 transition-all duration-300"
             />
