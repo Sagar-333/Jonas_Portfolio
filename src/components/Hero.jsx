@@ -26,7 +26,7 @@ const Hero = () => {
   };
 
   useEffect(() => {
-    if (loadedVideos === totalVideos - 1) {
+    if (loadedVideos >= 1) {
       setLoading(false);
     }
   }, [loadedVideos]);
@@ -113,6 +113,8 @@ const Hero = () => {
                   src={getVideoSrc((currentIndex % totalVideos) + 1)}
                   loop
                   muted
+                  playsInline
+                  preload="metadata"
                   id="current-video"
                   className="size-48 origin-center scale-150 object-cover object-center sm:size-64"
                   onLoadedData={handleVideoLoad}
@@ -126,6 +128,8 @@ const Hero = () => {
             src={getVideoSrc(currentIndex)}
             loop
             muted
+            playsInline
+            preload="metadata"
             id="next-video"
             className="absolute-center invisible absolute z-20 size-48 object-cover object-center sm:size-64"
             onLoadedData={handleVideoLoad}
@@ -137,6 +141,8 @@ const Hero = () => {
             autoPlay
             loop
             muted
+            playsInline
+            preload="auto"
             className="absolute left-0 top-0 size-full object-cover object-center"
             onLoadedData={handleVideoLoad}
           />
