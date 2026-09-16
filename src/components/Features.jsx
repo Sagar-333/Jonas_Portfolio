@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { TiLocationArrow } from "react-icons/ti";
 import { useLanguage } from "../context/LanguageContext";
 import GoFundMeCard from "./GoFundMeCard";
@@ -44,6 +44,65 @@ export const BentoCard = ({ src, title, description, isComingSoon, comingSoonTex
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverOpacity, setHoverOpacity] = useState(0);
   const hoverButtonRef = useRef(null);
+  const videoRef = useRef(null);
+
+  // Safari autoplay fix:
+  // 1. React bug #10389 — `muted` prop isn't reliably applied to the DOM.
+  // 2. Combine IntersectionObserver + readiness events + user-interaction fallback.
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // Force muted on the DOM element — critical for Safari
+    video.defaultMuted = true;
+    video.muted = true;
+
+    let isVisible = false;
+
+    const tryPlay = () => {
+      if (isVisible) {
+        video.muted = true;
+        video.play().catch(() => {});
+      }
+    };
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        isVisible = entry.isIntersecting;
+        if (isVisible) {
+          tryPlay();
+        } else {
+          video.pause();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+    observer.observe(video);
+
+    // Last resort: play on first user interaction
+    const playOnInteraction = () => {
+      tryPlay();
+      interactionCleanup();
+    };
+    const interactionCleanup = () => {
+      document.removeEventListener("scroll", playOnInteraction);
+      document.removeEventListener("click", playOnInteraction);
+      document.removeEventListener("touchstart", playOnInteraction);
+    };
+    document.addEventListener("scroll", playOnInteraction, { passive: true });
+    document.addEventListener("click", playOnInteraction);
+    document.addEventListener("touchstart", playOnInteraction, { passive: true });
+
+    return () => {
+      observer.disconnect();
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      interactionCleanup();
+    };
+  }, []);
 
   const handleMouseMove = (event) => {
     if (!hoverButtonRef.current) return;
@@ -61,11 +120,13 @@ export const BentoCard = ({ src, title, description, isComingSoon, comingSoonTex
   return (
     <div className="relative size-full overflow-hidden rounded-md">
       <video
+        ref={videoRef}
         src={src}
         loop
         muted
         autoPlay
         playsInline
+        preload="metadata"
         className="absolute left-0 top-0 size-full object-cover object-center"
       />
       <div className="relative z-10 flex size-full flex-col justify-between bg-gradient-to-t from-black/85 via-black/30 to-transparent p-4 text-blue-50 sm:p-6">

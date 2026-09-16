@@ -2,67 +2,58 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { ScrollTrigger } from "gsap/all";
 import { TiLocationArrow } from "react-icons/ti";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import Button from "./Button";
-import VideoPreview from "./VideoPreview";
 import { useLanguage } from "../context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Hero = () => {
   const { t } = useLanguage();
-  const [currentIndex, setCurrentIndex] = useState(1);
-  const [hasClicked, setHasClicked] = useState(false);
+  const heroVideoRef = useRef(null);
 
-  const [loading, setLoading] = useState(true);
-  const [loadedVideos, setLoadedVideos] = useState(0);
-
-  const totalVideos = 4;
-  const nextVdRef = useRef(null);
-
-  const handleVideoLoad = () => {
-    setLoadedVideos((prev) => prev + 1);
-  };
-
+  // Safari autoplay fix:
+  // 1. React bug #10389 — `muted` prop isn't reliably applied to the DOM.
+  //    Safari checks the DOM property, so we must force it via ref.
+  // 2. Try to play on mount, on data ready, and on first user interaction.
   useEffect(() => {
-    if (loadedVideos >= 1) {
-      setLoading(false);
-    }
-  }, [loadedVideos]);
+    const video = heroVideoRef.current;
+    if (!video) return;
 
-  const handleMiniVdClick = () => {
-    setHasClicked(true);
+    // Force muted on the DOM element — critical for Safari
+    video.defaultMuted = true;
+    video.muted = true;
 
-    setCurrentIndex((prevIndex) => (prevIndex % totalVideos) + 1);
-  };
+    const tryPlay = () => {
+      video.muted = true;
+      video.play().catch(() => {});
+    };
 
-  useGSAP(
-    () => {
-      if (hasClicked) {
-        gsap.set("#next-video", { visibility: "visible" });
-        gsap.to("#next-video", {
-          transformOrigin: "center center",
-          scale: 1,
-          width: "100%",
-          height: "100%",
-          duration: 1,
-          ease: "power1.inOut",
-          onStart: () => nextVdRef.current.play(),
-        });
-        gsap.from("#current-video", {
-          transformOrigin: "center center",
-          scale: 0,
-          duration: 1.5,
-          ease: "power1.inOut",
-        });
-      }
-    },
-    {
-      dependencies: [currentIndex],
-      revertOnUpdate: true,
-    }
-  );
+    tryPlay();
+    video.addEventListener("loadeddata", tryPlay);
+    video.addEventListener("canplay", tryPlay);
+
+    // Last resort: play on first user interaction (scroll/click/touch)
+    const playOnInteraction = () => {
+      tryPlay();
+      cleanup();
+    };
+    const cleanup = () => {
+      document.removeEventListener("scroll", playOnInteraction);
+      document.removeEventListener("click", playOnInteraction);
+      document.removeEventListener("touchstart", playOnInteraction);
+    };
+    document.addEventListener("scroll", playOnInteraction, { once: true, passive: true });
+    document.addEventListener("click", playOnInteraction, { once: true });
+    document.addEventListener("touchstart", playOnInteraction, { once: true, passive: true });
+
+    return () => {
+      video.removeEventListener("loadeddata", tryPlay);
+      video.removeEventListener("canplay", tryPlay);
+      cleanup();
+    };
+  }, []);
 
   useGSAP(() => {
     gsap.set("#video-frame", {
@@ -82,71 +73,22 @@ const Hero = () => {
     });
   });
 
-  const getVideoSrc = (index) => `videos/hero-${index}.mp4`;
-
   return (
     <div className="relative h-dvh w-full overflow-x-hidden">
-      {loading && (
-        <div className="flex-center absolute z-[100] h-dvh w-full overflow-hidden bg-violet-50">
-          {/* https://uiverse.io/G4b413l/tidy-walrus-92 */}
-          <div className="three-body">
-            <div className="three-body__dot"></div>
-            <div className="three-body__dot"></div>
-            <div className="three-body__dot"></div>
-          </div>
-        </div>
-      )}
-
       <div
         id="video-frame"
         className="relative z-10 h-dvh w-full overflow-hidden rounded-lg bg-blue-75"
       >
-        <div>
-          <div className="mask-clip-path absolute-center absolute z-50 size-48 cursor-pointer overflow-hidden rounded-lg sm:size-64">
-            <VideoPreview>
-              <div
-                onClick={handleMiniVdClick}
-                className="origin-center scale-75 opacity-70 transition-all duration-500 ease-in hover:scale-100 hover:opacity-100 sm:scale-50 sm:opacity-0"
-              >
-                <video
-                  ref={nextVdRef}
-                  src={getVideoSrc((currentIndex % totalVideos) + 1)}
-                  loop
-                  muted
-                  playsInline
-                  preload="metadata"
-                  id="current-video"
-                  className="size-48 origin-center scale-150 object-cover object-center sm:size-64"
-                  onLoadedData={handleVideoLoad}
-                />
-              </div>
-            </VideoPreview>
-          </div>
-
-          <video
-            ref={nextVdRef}
-            src={getVideoSrc(currentIndex)}
-            loop
-            muted
-            playsInline
-            preload="metadata"
-            id="next-video"
-            className="absolute-center invisible absolute z-20 size-48 object-cover object-center sm:size-64"
-            onLoadedData={handleVideoLoad}
-          />
-          <video
-            src={getVideoSrc(
-              currentIndex === totalVideos - 1 ? 1 : currentIndex
-            )}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            className="absolute left-0 top-0 size-full object-cover object-center"
-            onLoadedData={handleVideoLoad}
-          />
-        </div>
+        <video
+          ref={heroVideoRef}
+          src="videos/hero-1.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          preload="auto"
+          className="absolute left-0 top-0 size-full object-cover object-center"
+        />
 
         <h1
           className="special-font hero-heading absolute bottom-5 right-5 z-40 text-blue-75"
