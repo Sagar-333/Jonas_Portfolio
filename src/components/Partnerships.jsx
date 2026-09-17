@@ -327,16 +327,16 @@ const Partnerships = () => {
         {/* ── Top-right hero image ── */}
         <div
           ref={heroImageRef}
-          className="absolute top-0 right-0 hidden sm:block w-[40%] md:w-[35%] lg:w-[30%] h-[65%] overflow-hidden"
-          style={{ clipPath: "polygon(20% 0%, 100% 0%, 100% 100%, 0% 85%)" }}
+          className="pointer-events-none absolute top-0 right-0 hidden sm:block w-[55%] md:w-[48%] lg:w-[42%] h-[75%] md:h-[88%] lg:h-[95%] overflow-hidden"
+          style={{ clipPath: "polygon(14% 0%, 100% 0%, 100% 100%, 0% 82%)" }}
         >
           <img
-            src="/img/about.webp"
-            alt=""
-            className="size-full object-cover opacity-60"
+            src="/img/Partnership.jpg"
+            alt="Jonas Strate-Jensen Partnership"
+            className="size-full object-cover object-[53%_25%] opacity-70"
           />
-          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/30 to-black/80" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-l from-transparent via-black/25 to-black/90" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/20 to-transparent" />
         </div>
 
         {/* ── Heading with AnimatedTitle ── */}

@@ -5,7 +5,7 @@ import { useLanguage } from "../context/LanguageContext";
 
 const ImageClipBox = ({ src, clipClass }) => (
   <div className={clipClass}>
-    <img src={src} alt="Jonas Strate-Jensen" />
+    <img src={src} alt="Jonas Strate-Jensen" className="size-full object-cover" />
   </div>
 );
 
@@ -17,22 +17,18 @@ const Contact = () => {
       <div className="relative overflow-hidden rounded-b-2xl bg-black py-16 text-blue-50 sm:py-24">
         <div className="absolute -left-20 top-0 hidden h-full w-72 overflow-hidden sm:block lg:left-20 lg:w-96">
           <ImageClipBox
-            src="/img/contact-1.webp"
+            src="/img/Contact-1.jpg"
             clipClass="contact-clip-path-1"
           />
           <ImageClipBox
-            src="/img/contact-2.webp"
+            src="/img/Contact-2.jpg"
             clipClass="contact-clip-path-2 lg:translate-y-40 translate-y-60"
           />
         </div>
 
         <div className="absolute top-1/2 hidden w-60 -translate-y-1/2 sm:block md:left-auto md:right-10 md:translate-y-0 lg:top-20 lg:w-80">
           <ImageClipBox
-            src="/img/swordman-partial.webp"
-            clipClass="absolute md:scale-125"
-          />
-          <ImageClipBox
-            src="/img/swordman.webp"
+            src="/img/Contact-3.jpg"
             clipClass="sword-man-clip-path md:scale-125"
           />
         </div>

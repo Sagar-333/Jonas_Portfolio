@@ -113,9 +113,10 @@ const FloatingImage = () => {
             </p>
 
             <Button
-              id="bio-btn"
-              title={t.story.bioButton}
-              href="https://www.gofundme.com/f/support-my-2027-karting-season-journey-3jpe3"
+              id="story-deck-btn"
+              title={t.story.bioButton || "Driver's Deck"}
+              href="/docs/Jonas_Strate_Jensen_Driver_Deck.pdf"
+              download="Jonas_Strate_Jensen_Driver_Deck.pdf"
               target="_blank"
               rightIcon={<TiLocationArrow />}
               containerClass="mt-5 bg-[#459cce] text-black font-semibold hover:bg-white transition-all flex-center gap-1.5 shadow-md shadow-[#459cce]/20"

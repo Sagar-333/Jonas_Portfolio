@@ -111,10 +111,12 @@ const Hero = () => {
             </p>
 
             <Button
-              id="watch-reel"
-              title={t.hero.watchReel}
-              href="#disciplines"
-              leftIcon={<TiLocationArrow />}
+              id="hero-deck-button"
+              title={t.hero.driverDeck || t.nav.driverDeck || "Driver's Deck"}
+              href="/docs/Jonas_Strate_Jensen_Driver_Deck.pdf"
+              download="Jonas_Strate_Jensen_Driver_Deck.pdf"
+              target="_blank"
+              rightIcon={<TiLocationArrow />}
               containerClass="bg-[#459cce] text-black font-semibold flex-center gap-1 hover:bg-white shadow-md shadow-[#459cce]/20 transition-all duration-300"
             />
           </div>

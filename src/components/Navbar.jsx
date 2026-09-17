@@ -63,10 +63,9 @@ const NavBar = () => {
               </a>
 
               <Button
-                id="deck-button"
-                title={t.nav.driverDeck}
-                href="/docs/Jonas_Strate_Jensen_Driver_Deck.pdf"
-                download="Jonas_Strate_Jensen_Driver_Deck.pdf"
+                id="support-nav-btn"
+                title={t.nav.supportCampaign || "Support the Journey"}
+                href="https://www.gofundme.com/f/support-my-2027-karting-season-journey-3jpe3"
                 target="_blank"
                 rightIcon={<TiLocationArrow />}
                 containerClass="bg-[#459cce] text-black font-semibold md:flex hidden items-center justify-center gap-1 hover:bg-white shadow-md shadow-[#459cce]/20 transition-all duration-300"
@@ -183,10 +182,9 @@ const NavBar = () => {
 
           <div className="flex flex-col gap-4 border-t border-white/10 pt-6">
             <Button
-              id="mobile-deck-button"
-              title={t.nav.driverDeck}
-              href="/docs/Jonas_Strate_Jensen_Driver_Deck.pdf"
-              download="Jonas_Strate_Jensen_Driver_Deck.pdf"
+              id="mobile-support-btn"
+              title={t.nav.supportCampaign || "Support the Journey"}
+              href="https://www.gofundme.com/f/support-my-2027-karting-season-journey-3jpe3"
               target="_blank"
               onClick={() => setIsMobileMenuOpen(false)}
               rightIcon={<TiLocationArrow />}

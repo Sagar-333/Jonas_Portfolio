@@ -9,6 +9,7 @@ export const translations = {
         { label: "Contact", href: "#contact" },
       ],
       driverDeck: "Driver Deck",
+      supportCampaign: "Support the Journey",
       navigation: "Navigation",
       officialPortfolio: "Jonas Strate-Jensen // Official Portfolio",
     },
@@ -19,6 +20,7 @@ export const translations = {
       description: "17-Year-Old Danish Racing Talent • Road to Le Mans GT3",
       descriptionLine2: "From Sim Rig & Academy Champion to Owner-Kart Contender.",
       watchReel: "Watch Race Reel",
+      driverDeck: "Driver's Deck",
     },
     about: {
       philosophy: "The Driver Philosophy",
@@ -63,7 +65,7 @@ export const translations = {
       title: "from s<b>i</b>m rig to <br /> real-w<b>o</b>rld ap<b>e</b>x",
       description:
         "What ignited in 2020 with F1 2020 on a desktop wheel quickly evolved into race-winning pace on real asphalt. After conquering Power Racing's first team, saving 23,000 DKK through bottle deposits and hard jobs to buy his kart, and returning from boarding school, Jonas is primed for his October race debut on the road to the Zealand Championship and Le Mans GT3.",
-      bioButton: "Support The Journey",
+      bioButton: "Driver's Deck",
     },
     partnerships: {
       title: "Partn<b>e</b>rships.",
@@ -102,6 +104,7 @@ export const translations = {
         { label: "Kontakt", href: "#contact" },
       ],
       driverDeck: "Kørerprofil",
+      supportCampaign: "Støt Rejsen",
       navigation: "Navigation",
       officialPortfolio: "Jonas Strate-Jensen // Officiel Portefølje",
     },
@@ -112,6 +115,7 @@ export const translations = {
       description: "17-årigt dansk racertalent • Vejen mod Le Mans GT3",
       descriptionLine2: "Fra sim-racing og akademi-sejre til egen gokart og baneløb.",
       watchReel: "Se Race Reel",
+      driverDeck: "Kørerprofil",
     },
     about: {
       philosophy: "Kørerens Filosofi",
@@ -156,7 +160,7 @@ export const translations = {
       title: "fra s<b>i</b>mulator til <br /> virkel<b>i</b>ghedens ap<b>e</b>x",
       description:
         "Det hele startede i 2020 med F1 2020 og et computerrat under lockdown. Da banerne åbnede, mødte den virtuelle præcision asfalten hos Power Racing. Efter sejre på 1. holdet, 23.000 kr. opsparet via flaskepant til egen gokart og et efterskoleophold, er Jonas nu tilbage for fuld gas. Første løb venter til oktober — rejsen er kun lige begyndt.",
-      bioButton: "Støt Rejsen",
+      bioButton: "Kørerprofil",
     },
     partnerships: {
       title: "Partn<b>e</b>rskaber.",

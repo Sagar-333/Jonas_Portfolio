@@ -40,7 +40,15 @@ export const BentoTilt = ({ children, className = "" }) => {
   );
 };
 
-export const BentoCard = ({ src, title, description, isComingSoon, comingSoonText = "Milestone" }) => {
+export const BentoCard = ({
+  src,
+  title,
+  description,
+  isComingSoon,
+  comingSoonText = "Milestone",
+  descriptionClassName = "",
+  titleClassName = "",
+}) => {
   const [cursorPosition, setCursorPosition] = useState({ x: 0, y: 0 });
   const [hoverOpacity, setHoverOpacity] = useState(0);
   const hoverButtonRef = useRef(null);
@@ -132,13 +140,19 @@ export const BentoCard = ({ src, title, description, isComingSoon, comingSoonTex
       <div className="relative z-10 flex size-full flex-col justify-between bg-gradient-to-t from-black/85 via-black/30 to-transparent p-4 text-blue-50 sm:p-6">
         <div>
           <h1
-            className="bento-title special-font"
+            className={`bento-title special-font ${titleClassName}`}
             dangerouslySetInnerHTML={typeof title === "string" ? { __html: title } : undefined}
           >
             {typeof title !== "string" ? title : null}
           </h1>
           {description && (
-            <p className="mt-2 max-w-sm text-xs leading-relaxed text-blue-100/80 sm:mt-3 sm:text-sm">
+            <p
+              className={
+                descriptionClassName
+                  ? `mt-2 leading-relaxed text-blue-100/80 ${descriptionClassName}`
+                  : "mt-2 max-w-sm text-xs leading-relaxed text-blue-100/80 sm:mt-3 sm:text-sm"
+              }
+            >
               {description}
             </p>
           )}
@@ -190,6 +204,7 @@ const Features = () => {
             src="videos/feature-1.mp4"
             title={t.features.academyTitle}
             description={t.features.academyDesc}
+            descriptionClassName="max-w-xl text-base sm:mt-3 sm:text-lg md:text-xl"
             isComingSoon
             comingSoonText={t.features.comingSoon}
           />
