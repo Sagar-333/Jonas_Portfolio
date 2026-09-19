@@ -70,7 +70,7 @@ const FloatingImage = () => {
                   onMouseLeave={handleMouseLeave}
                   onMouseUp={handleMouseLeave}
                   onMouseEnter={handleMouseLeave}
-                  src="/img/entrance.webp"
+                  src="/img/Entrance2.jpg"
                   alt="Jonas Strate-Jensen Journey"
                   className="max-h-[50vh] object-contain md:max-h-none"
                 />

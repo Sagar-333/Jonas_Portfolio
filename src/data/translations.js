@@ -43,7 +43,7 @@ export const translations = {
       gritDesc:
         "Zero handouts: Collected bottle deposits (pant) earning 11,000 DKK and worked tirelessly to save 23,000 DKK to buy his first competitive owner kart in 2024.",
       debutTitle: "Oct<b>o</b>ber 2026 R<b>a</b>ce Debut.",
-      debutDesc: "Debut race in October • Zealand Championship & F4 Test Roadmap",
+      debutDesc: "Debut race in October • Road to Zealand Championship",
       targetTitle: "Road to Le M<b>a</b>ns GT3",
       targetDesc: "The ultimate north star: Competing in GT3 at the legendary 24 Hours of Le Mans.",
       comingSoon: "Milestone",
@@ -138,7 +138,7 @@ export const translations = {
       gritDesc:
         "Intet kom forærende: Samlede flaskepant for 11.000 kr. og knoklede i lavtlønnede jobs for at spare 23.000 kr. sammen til sin egen gokart i 2024.",
       debutTitle: "Okt<b>o</b>ber 2026 Løbs<b>d</b>ebut.",
-      debutDesc: "Debutløb til oktober • Vejen til Sjællandsmesterskabet og Formel 4",
+      debutDesc: "Debutløb til oktober • Vejen til Sjællandsmesterskabet",
       targetTitle: "M<b>å</b>let: Le M<b>a</b>ns GT3",
       targetDesc: "Det ultimative mål: Køre GT3 i det legendariske 24-timers løb på Le Mans.",
       comingSoon: "Milepæl",
