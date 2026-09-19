@@ -114,7 +114,7 @@ const FloatingImage = () => {
 
             <Button
               id="story-deck-btn"
-              title={t.story.bioButton || "Driver's Deck"}
+              title={t.story.bioButton || "Driver Profile"}
               href="/docs/Jonas_Strate_Jensen_Driver_Deck.pdf"
               download="Jonas_Strate_Jensen_Driver_Deck.pdf"
               target="_blank"

@@ -112,7 +112,7 @@ const Hero = () => {
 
             <Button
               id="hero-deck-button"
-              title={t.hero.driverDeck || t.nav.driverDeck || "Driver's Deck"}
+              title={t.hero.driverDeck || t.nav.driverDeck || "Driver Profile"}
               href="/docs/Jonas_Strate_Jensen_Driver_Deck.pdf"
               download="Jonas_Strate_Jensen_Driver_Deck.pdf"
               target="_blank"
